@@ -1,0 +1,26 @@
+NORTHWIND TROUBLESHOOTING GUIDE
+
+Error Codes
+
+E-101 indicates that the agent could not reach the Northwind cloud endpoint.
+Check network connectivity and firewall rules before retrying.
+
+E-204 indicates an authentication failure caused by an expired account token.
+Regenerate the token in the console and update the agent configuration.
+
+Resolving Sync Failures
+
+Follow these steps to resolve a stalled synchronization.
+
+1. Confirm the agent service is running.
+2. Check that the outbound port 443 is open.
+3. Restart the agent service.
+4. If the problem persists, collect the diagnostic bundle from the console.
+
+Known Exceptions
+
+Do not restore a database snapshot while the database service is running. Stop the
+service first to avoid a corrupted restore.
+
+Do not run two full backups at the same time on the same machine; the second will be
+queued until the first completes.

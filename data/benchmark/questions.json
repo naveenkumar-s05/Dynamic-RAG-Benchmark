@@ -1,0 +1,271 @@
+{
+  "corpus_id": "northwind-v1",
+  "description": "Synthetic benchmark corpus for the Northwind Cloud Backup Service. Covers factual lookup, table lookup, ordered procedures, exceptions/warnings and multi-part questions across six document formats. All content is synthetic and contains no private or copyrighted material.",
+  "relevance_scale": {
+    "2": "highly relevant: passage contains the primary fact for the question",
+    "1": "relevant: passage comes from an expected source and contains an essential fact",
+    "0": "not relevant"
+  },
+  "relevance_rule": "A retrieved chunk is graded 2 if its source_name is in expected_sources and its text contains the primary_fact; graded 1 if its source_name is in expected_sources and its text contains any essential fact; otherwise 0.",
+  "documents": [
+    "api_reference.pdf",
+    "faq.html",
+    "plans.csv",
+    "product_guide.md",
+    "release_notes.docx",
+    "troubleshooting.txt"
+  ],
+  "questions": [
+    {
+      "question_id": "q01",
+      "question": "What encryption standard does Northwind use for data at rest?",
+      "category": "factual_lookup",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["AES-256"],
+      "primary_fact": "AES-256",
+      "evidence": [{"source_name": "product_guide.md", "section": "Security and Encryption", "page": null}],
+      "reference_answer": "Northwind encrypts data at rest with AES-256.",
+      "notes": "Direct factual lookup within the Security and Encryption section."
+    },
+    {
+      "question_id": "q02",
+      "question": "Which transport protocol secures data in transit?",
+      "category": "factual_lookup",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["TLS 1.3"],
+      "primary_fact": "TLS 1.3",
+      "evidence": [{"source_name": "product_guide.md", "section": "Security and Encryption", "page": null}],
+      "reference_answer": "Data in transit is secured with TLS 1.3.",
+      "notes": "Same section as q01; tests that the right fact is retrieved."
+    },
+    {
+      "question_id": "q03",
+      "question": "What is the monthly price of the Enterprise plan?",
+      "category": "table_lookup",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["10 TB", "$49"],
+      "primary_fact": "$49",
+      "evidence": [{"source_name": "product_guide.md", "section": "Plans and Limits", "page": null}],
+      "reference_answer": "The Enterprise plan costs $49 per month.",
+      "notes": "Requires the table row to be retrieved with its header."
+    },
+    {
+      "question_id": "q04",
+      "question": "How long is the retention window on the Standard plan?",
+      "category": "table_lookup",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["90 days"],
+      "primary_fact": "90 days",
+      "evidence": [{"source_name": "product_guide.md", "section": "Plans and Limits", "page": null}],
+      "reference_answer": "The Standard plan retains backups for 90 days.",
+      "notes": "Table lookup for retention."
+    },
+    {
+      "question_id": "q05",
+      "question": "At what time do the default backups run?",
+      "category": "factual_lookup",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["02:00 UTC", "Sunday"],
+      "primary_fact": "02:00 UTC",
+      "evidence": [{"source_name": "product_guide.md", "section": "Backup Schedule", "page": null}],
+      "reference_answer": "Backups run at 02:00 UTC; the full backup runs every Sunday and an incremental backup runs daily.",
+      "notes": "Fact spread across the Backup Schedule paragraph."
+    },
+    {
+      "question_id": "q06",
+      "question": "What is the maximum single file size on the Enterprise plan?",
+      "category": "factual_lookup",
+      "expected_sources": ["product_guide.md", "faq.html"],
+      "essential_facts": ["500 GB"],
+      "primary_fact": "500 GB",
+      "evidence": [
+        {"source_name": "product_guide.md", "section": "Plans and Limits", "page": null},
+        {"source_name": "faq.html", "section": "What is the maximum file size?", "page": null}
+      ],
+      "reference_answer": "The Enterprise per-file limit is 500 GB.",
+      "notes": "Related concept present in two documents; either is acceptable evidence."
+    },
+    {
+      "question_id": "q07",
+      "question": "Which plan cannot be used for database backups?",
+      "category": "exception",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["Basic plan cannot be used for database backups"],
+      "primary_fact": "Basic plan cannot be used for database backups",
+      "evidence": [{"source_name": "product_guide.md", "section": "Warnings and Exceptions", "page": null}],
+      "reference_answer": "The Basic plan cannot be used for database backups.",
+      "notes": "Exception handling: answer lives in the Warnings and Exceptions list."
+    },
+    {
+      "question_id": "q08",
+      "question": "What does error code E-101 mean?",
+      "category": "factual_lookup",
+      "expected_sources": ["troubleshooting.txt"],
+      "essential_facts": ["E-101", "could not reach the Northwind cloud endpoint"],
+      "primary_fact": "could not reach the Northwind cloud endpoint",
+      "evidence": [{"source_name": "troubleshooting.txt", "section": "Error Codes", "page": null}],
+      "reference_answer": "E-101 means the agent could not reach the Northwind cloud endpoint.",
+      "notes": "Plain-text error code lookup."
+    },
+    {
+      "question_id": "q09",
+      "question": "What causes error E-204 and how is it fixed?",
+      "category": "factual_lookup",
+      "expected_sources": ["troubleshooting.txt"],
+      "essential_facts": ["E-204", "expired account token"],
+      "primary_fact": "expired account token",
+      "evidence": [{"source_name": "troubleshooting.txt", "section": "Error Codes", "page": null}],
+      "reference_answer": "E-204 is an authentication failure caused by an expired account token; regenerate the token and update the agent.",
+      "notes": "Cause-and-fix lookup."
+    },
+    {
+      "question_id": "q10",
+      "question": "Which network port must be open when resolving sync failures?",
+      "category": "procedure",
+      "expected_sources": ["troubleshooting.txt"],
+      "essential_facts": ["port 443"],
+      "primary_fact": "port 443",
+      "evidence": [{"source_name": "troubleshooting.txt", "section": "Resolving Sync Failures", "page": null}],
+      "reference_answer": "Outbound port 443 must be open.",
+      "notes": "Answer is one step inside an ordered procedure."
+    },
+    {
+      "question_id": "q11",
+      "question": "What must you avoid doing when restoring a database snapshot?",
+      "category": "exception",
+      "expected_sources": ["troubleshooting.txt"],
+      "essential_facts": ["Do not restore a database snapshot while the database service is running"],
+      "primary_fact": "Do not restore a database snapshot while the database service is running",
+      "evidence": [{"source_name": "troubleshooting.txt", "section": "Known Exceptions", "page": null}],
+      "reference_answer": "Do not restore a database snapshot while the database service is running; stop the service first.",
+      "notes": "Exception phrasing must be preserved by the chunker."
+    },
+    {
+      "question_id": "q12",
+      "question": "Does Northwind support Linux?",
+      "category": "factual_lookup",
+      "expected_sources": ["faq.html"],
+      "essential_facts": ["Native agents are available for Windows, macOS and Linux"],
+      "primary_fact": "Native agents are available for Windows, macOS and Linux",
+      "evidence": [{"source_name": "faq.html", "section": "Does Northwind support Linux?", "page": null}],
+      "reference_answer": "Yes, native agents are available for Windows, macOS and Linux.",
+      "notes": "FAQ question/answer pair must stay together."
+    },
+    {
+      "question_id": "q13",
+      "question": "What email address can I use to contact Northwind support?",
+      "category": "factual_lookup",
+      "expected_sources": ["faq.html"],
+      "essential_facts": ["support@northwind.example"],
+      "primary_fact": "support@northwind.example",
+      "evidence": [{"source_name": "faq.html", "section": "How do I contact support?", "page": null}],
+      "reference_answer": "Email support@northwind.example or open a ticket in the portal.",
+      "notes": "Answer is in the support FAQ answer."
+    },
+    {
+      "question_id": "q14",
+      "question": "Which support channel does the Enterprise plan include?",
+      "category": "table_lookup",
+      "expected_sources": ["plans.csv"],
+      "essential_facts": ["Enterprise", "24x7 phone"],
+      "primary_fact": "24x7 phone",
+      "evidence": [{"source_name": "plans.csv", "section": "plans.csv", "page": null}],
+      "reference_answer": "Enterprise includes 24x7 phone support.",
+      "notes": "CSV record lookup; header/value association must be preserved."
+    },
+    {
+      "question_id": "q15",
+      "question": "Which plan has a 30-day retention period?",
+      "category": "table_lookup",
+      "expected_sources": ["plans.csv"],
+      "essential_facts": ["Basic", "30"],
+      "primary_fact": "Basic",
+      "evidence": [{"source_name": "plans.csv", "section": "plans.csv", "page": null}],
+      "reference_answer": "The Basic plan has a 30-day retention period.",
+      "notes": "CSV lookup keyed on the retention column."
+    },
+    {
+      "question_id": "q16",
+      "question": "What version is described in the latest release notes?",
+      "category": "factual_lookup",
+      "expected_sources": ["release_notes.docx"],
+      "essential_facts": ["4.2"],
+      "primary_fact": "4.2",
+      "evidence": [{"source_name": "release_notes.docx", "section": "Version 4.2", "page": null}],
+      "reference_answer": "Release notes describe version 4.2.",
+      "notes": "DOCX heading lookup."
+    },
+    {
+      "question_id": "q17",
+      "question": "Name one new feature added in version 4.2.",
+      "category": "factual_lookup",
+      "expected_sources": ["release_notes.docx"],
+      "essential_facts": ["Incremental snapshot verification"],
+      "primary_fact": "Incremental snapshot verification",
+      "evidence": [{"source_name": "release_notes.docx", "section": "New Features", "page": null}],
+      "reference_answer": "Incremental snapshot verification is a new feature in 4.2.",
+      "notes": "DOCX list item lookup."
+    },
+    {
+      "question_id": "q18",
+      "question": "What is the API rate limit per account?",
+      "category": "factual_lookup",
+      "expected_sources": ["api_reference.pdf"],
+      "essential_facts": ["100 requests per minute"],
+      "primary_fact": "100 requests per minute",
+      "evidence": [{"source_name": "api_reference.pdf", "section": "Rate Limits", "page": 1}],
+      "reference_answer": "The API allows 100 requests per minute per account.",
+      "notes": "PDF text lookup."
+    },
+    {
+      "question_id": "q19",
+      "question": "Which API endpoint starts a backup?",
+      "category": "table_lookup",
+      "expected_sources": ["api_reference.pdf"],
+      "essential_facts": ["/v1/snapshots"],
+      "primary_fact": "/v1/snapshots",
+      "evidence": [{"source_name": "api_reference.pdf", "section": "Endpoints", "page": 1}],
+      "reference_answer": "POST /v1/snapshots starts a backup.",
+      "notes": "PDF endpoint lookup."
+    },
+    {
+      "question_id": "q20",
+      "question": "What is the per-file limit on the Standard plan and what is the API rate limit?",
+      "category": "multi_part",
+      "expected_sources": ["product_guide.md", "api_reference.pdf"],
+      "essential_facts": ["50 GB", "100 requests per minute"],
+      "primary_fact": "50 GB",
+      "evidence": [
+        {"source_name": "product_guide.md", "section": "Plans and Limits", "page": null},
+        {"source_name": "api_reference.pdf", "section": "Rate Limits", "page": 1}
+      ],
+      "reference_answer": "The Standard per-file limit is 50 GB and the API allows 100 requests per minute.",
+      "notes": "Multi-part question spanning two documents."
+    },
+    {
+      "question_id": "q21",
+      "question": "Which plan cannot be used for database backups, and which error indicates an expired token?",
+      "category": "multi_part",
+      "expected_sources": ["product_guide.md", "troubleshooting.txt"],
+      "essential_facts": ["Basic plan cannot be used for database backups", "expired account token"],
+      "primary_fact": "Basic plan cannot be used for database backups",
+      "evidence": [
+        {"source_name": "product_guide.md", "section": "Warnings and Exceptions", "page": null},
+        {"source_name": "troubleshooting.txt", "section": "Error Codes", "page": null}
+      ],
+      "reference_answer": "The Basic plan cannot back up databases, and E-204 indicates an expired account token.",
+      "notes": "Multi-part question requiring correct source attribution."
+    },
+    {
+      "question_id": "q22",
+      "question": "How is Northwind data protected at rest and in transit?",
+      "category": "multi_part",
+      "expected_sources": ["product_guide.md"],
+      "essential_facts": ["AES-256", "TLS 1.3"],
+      "primary_fact": "AES-256",
+      "evidence": [{"source_name": "product_guide.md", "section": "Security and Encryption", "page": null}],
+      "reference_answer": "Data at rest uses AES-256 and data in transit uses TLS 1.3.",
+      "notes": "Two related facts in the same section; tests context completeness."
+    }
+  ]
+}

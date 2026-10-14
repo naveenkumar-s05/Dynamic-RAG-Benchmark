@@ -1,0 +1,44 @@
+# --- Secrets / environment ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Generated indexes, caches and runtime data (never commit) ---
+indexes/
+.cache/
+data/uploads/
+data/private/
+data/temp/
+temp/
+tmp/
+.cache_data/
+
+# --- Benchmark reports (generated artifacts) ---
+reports/*.csv
+reports/*.json
+!reports/.gitkeep
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

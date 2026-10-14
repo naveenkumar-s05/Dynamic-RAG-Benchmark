@@ -1,0 +1,46 @@
+# Dynamic RAG Document Intelligence & Benchmarking System
+# Tested with Python 3.11. Bounded ranges keep the project reproducible
+# without pinning every transitive dependency.
+
+# --- Web UI ---
+streamlit>=1.30,<2.0
+
+# --- Data / numerics ---
+numpy>=1.24,<3.0
+pandas>=2.0
+scipy>=1.10
+
+# --- Document parsing ---
+pymupdf>=1.23           # PDF text + layout extraction
+python-docx>=1.1        # DOCX headings, paragraphs, tables
+beautifulsoup4>=4.12    # HTML readable-content extraction
+lxml>=5.0               # fast BeautifulSoup parser backend
+
+# --- Embeddings + vector search ---
+sentence-transformers>=2.7
+torch>=2.2
+faiss-cpu>=1.8
+
+# --- Retrieval ---
+rank-bm25>=0.2.2        # optional BM25 keyword retrieval
+
+# --- Token counting ---
+tiktoken>=0.7
+
+# --- RAG generation (optional providers) ---
+requests>=2.31          # Ollama HTTP + OpenAI-compatible fallback
+openai>=1.30            # OpenAI-compatible chat APIs
+
+# --- Configuration ---
+python-dotenv>=1.0
+
+# --- Images (used by optional OCR path) ---
+Pillow>=10.0
+
+# --- Testing ---
+pytest>=8.0
+
+# --- Optional OCR (requires the Tesseract executable installed separately) ---
+# Install with:  python -m pip install pytesseract
+# then install the Tesseract binary and set TESSERACT_CMD if it is not on PATH.
+# pytesseract>=0.3.10

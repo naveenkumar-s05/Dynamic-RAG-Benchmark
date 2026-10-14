@@ -1,0 +1,4 @@
+plan,storage_gb,retention_days,monthly_usd,max_file_gb,support
+Basic,100,30,5,50,email
+Standard,1000,90,15,50,email
+Enterprise,10000,365,49,500,24x7 phone
